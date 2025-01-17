@@ -1,0 +1,94 @@
+<odoo>
+    <data>
+        <!-- Action Window Category -->
+        <record model="ir.actions.act_window" id="iscapop.action_window_category_list">
+            <field name="name">Category List</field>
+            <field name="res_model">iscapop.category_model</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Action Window Item -->
+        <record model="ir.actions.act_window" id="iscapop.action_window_item_list">
+            <field name="name">Item List</field>
+            <field name="res_model">iscapop.item_model</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <!-- Action Window Item Add -->
+        <record model="ir.actions.act_window" id="iscapop.action_window_item_add">
+            <field name="name">Item Add</field>
+            <field name="res_model">iscapop.bulk_item_generator_model</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <!-- Action Window Item Move -->
+        <record model="ir.actions.act_window" id="action_move_item">
+            <field name="name">Item Add</field>
+            <field name="res_model">iscapop.move_item_model</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <!-- Action Window Location -->
+        <record model="ir.actions.act_window" id="iscapop.action_window_location_list">
+            <field name="name">Location List</field>
+            <field name="res_model">iscapop.location_model</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Action Window Donation -->
+        <record model="ir.actions.act_window" id="iscapop.action_window_donation_list">
+            <field name="name">Location List</field>
+            <field name="res_model">iscapop.donation_model</field>
+            <field name="view_mode">kanban,tree</field>
+        </record>
+
+        <!--
+        <record model="ir.ui.view" id="task_app.task_model_search">
+            <field name="name">Task Filters</field>
+            <field name="model">task_app.task_model</field>
+            <field name="arch" type="xml">
+                <search string="Task Filter">
+                    <field name="name"/>
+                    <filter string="Finished Tasks" name="finished" domain="[('is_done', '=', True)]"/>
+                    <filter string="Unfinished Tasks" name="unfinished" domain="[('is_done', '!=', True)]"/>
+                    <filter string="Historical Finished Tasks" name="historical" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+        -->
+
+
+        <!-- Top menu item -->
+        <menuitem name="ISCAPOP" id="iscapop.menu_root"/>
+
+
+        <!-- Menu Category -->
+        <menuitem name="Categories" id="iscapop.menu_category" parent="iscapop.menu_root"/>
+
+        <!-- Menu Item -->
+        <menuitem name="Items" id="iscapop.menu_item" parent="iscapop.menu_root"/>
+
+        <!-- Menu Location -->
+        <menuitem name="Locations" id="iscapop.menu_location" parent="iscapop.menu_root"/>
+
+        <!-- Menu Donation -->
+        <menuitem name="Donations" id="iscapop.menu_donation" parent="iscapop.menu_root"/>
+
+
+        <!-- Action Category -->
+        <menuitem name="Category List" id="iscapop.category_list" parent="iscapop.menu_category" action="iscapop.action_window_category_list"/>
+
+        <!-- Action Item -->
+        <menuitem name="Item List" id="iscapop.item_list" parent="iscapop.menu_item" action="iscapop.action_window_item_list"/>
+
+        <!-- Action Add Item -->
+        <menuitem name="Item Add" id="iscapop.item_add" parent="iscapop.menu_item" action="iscapop.action_window_item_add"/>
+
+        <!-- Action Location -->
+        <menuitem name="Location List" id="iscapop.location_list" parent="iscapop.menu_location" action="iscapop.action_window_location_list"/>
+
+        <!-- Action Donation -->
+        <menuitem name="Donation List" id="iscapop.donation_list" parent="iscapop.menu_donation" action="iscapop.action_window_donation_list"/>
+    </data>
+</odoo>

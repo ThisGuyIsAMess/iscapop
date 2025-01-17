@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <!-- Form -->
+        <record model="ir.ui.view" id="iscapop.bulk_item_generator_model_form">
+            <field name="name">New Item</field>
+            <field name="model">iscapop.bulk_item_generator_model</field>
+            <field name="arch" type="xml">
+                <form string="Item">
+                    <sheet>
+                        <group>
+                            <group name="left" string="Photo">
+                                <field name="photo" string="" widget="image"/>
+                            </group>
+                            <group name="right" string="Item Details">
+                                <field name="name"/>
+                                <field name="description"/>
+                                <field name="category_id"/>
+                                <field name="location_id"/>
+                                <field name="condition"/>
+                                <field name="quantity"/>
+                                <button name="action_generate_item" type="object" string="Create" class="oe_highlight" confirm="Do you want to create the items?"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+        <!-- Tree -->
+        <record model="ir.ui.view" id="iscapop.location_model_tree">
+            <field name="name">Location List</field>
+            <field name="model">iscapop.location_model</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form -->
+        <record model="ir.ui.view" id="iscapop.location_model_form">
+            <field name="name">New Location</field>
+            <field name="model">iscapop.location_model</field>
+            <field name="arch" type="xml">
+                <form string="Location">
+                    <sheet>
+                        <header>
+                            <button name="retireItem" type="object" string="Remove retired items" class="oe_highlight" confirm="Do you want to remove all the retired items?"/>
+                            <button name="%(action_move_item)d" type="action" string="Move Items" class="oe_highlight"/>
+                        </header>
+                        <body>
+                            <group>
+                                <field name="name"/>
+                                <field name="description"/>
+                                <field name="type" widget="selection_badge"/>
+                            </group>
+                            <notebook>
+                                <page name="items" string="Items">
+                                    <field name="item_ids"/>
+                                </page>
+                            </notebook>
+                        </body>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

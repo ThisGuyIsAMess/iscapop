@@ -1,0 +1,34 @@
+<odoo>
+    <data>
+        <!-- Form -->
+        <record model="ir.ui.view" id="iscapop.move_item_model_form">
+            <field name="name">Move Item</field>
+            <field name="model">iscapop.move_item_model</field>
+            <field name="arch" type="xml">
+                <form string="Item">
+                    <sheet>
+                        <body>
+                            <group>
+                                <group name="left" string="Filter by">
+                                    <field name="name"/>
+                                    <field name="condition"/>
+                                    <field name="category_id"/>
+                                    <field name="quantity"/>
+                                </group>
+                                <group name="right" string="Move">
+                                    <field name="origin_id"/>
+                                    <field name="destination_id"/>
+                                </group>
+                            </group>
+                        </body>
+                        <footer>
+                            <group>
+                                <button name="action_move_item" type="object" string="Move" class="oe_highlight" confirm="Do you want to move items?"/>
+                            </group>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
