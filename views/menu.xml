@@ -5,6 +5,7 @@
             <field name="name">Category List</field>
             <field name="res_model">iscapop.category_model</field>
             <field name="view_mode">tree,form</field>
+            <field name="domain">[('create_uid', '=', uid)]</field>
         </record>
 
         <!-- Action Window Item -->
