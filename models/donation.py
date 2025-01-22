@@ -11,8 +11,8 @@ class DonationModel(models.Model):
     condition = fields.Selection(string="Condition", related='item_ids.condition')
     category = fields.Char(string="Category", related='item_ids.category_id.name')
     date = fields.Date(string="Date")
-    #Donator
+    donator = fields.Many2one(string="Donator", comodel_name="res.users")
     #Reciever
     #Reserved
-    
+
     #Items can only be donated if they're in a storage location

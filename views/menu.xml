@@ -13,6 +13,7 @@
             <field name="name">Item List</field>
             <field name="res_model">iscapop.item_model</field>
             <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('create_uid', '=', uid)]</field>
         </record>
 
         <!-- Action Window Item Add -->
@@ -21,20 +22,13 @@
             <field name="res_model">iscapop.bulk_item_generator_model</field>
             <field name="view_mode">form</field>
         </record>
-
-        <!-- Action Window Item Move -->
-        <record model="ir.actions.act_window" id="action_move_item">
-            <field name="name">Item Add</field>
-            <field name="res_model">iscapop.move_item_model</field>
-            <field name="view_mode">form</field>
-            <field name="target">new</field>
-        </record>
         
         <!-- Action Window Location -->
         <record model="ir.actions.act_window" id="iscapop.action_window_location_list">
             <field name="name">Location List</field>
             <field name="res_model">iscapop.location_model</field>
             <field name="view_mode">tree,form</field>
+            <field name="domain">[('create_uid', '=', uid)]</field>
         </record>
 
         <!-- Action Window Donation -->

@@ -1,5 +1,13 @@
 <odoo>
     <data>
+        <!-- Action Window Item Move -->
+        <record model="ir.actions.act_window" id="action_move_item">
+            <field name="name">Item Add</field>
+            <field name="res_model">iscapop.move_item_model</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
         <!-- Form -->
         <record model="ir.ui.view" id="iscapop.move_item_model_form">
             <field name="name">Move Item</field>

@@ -1,3 +1,4 @@
+from asyncio import exceptions
 import datetime
 from odoo import models, fields, api
 
@@ -14,21 +15,23 @@ class ItemModel(models.Model):
     location_id = fields.Many2one(string="Location", comodel_name="iscapop.location_model", required=True, ondelete="cascade")
     category_id = fields.Many2one(string="Category", comodel_name="iscapop.category_model", ondelete="cascade")
     donation_id = fields.One2many(string="Donated", comodel_name="iscapop.donation_model", inverse_name="item_ids", readonly=True)
-    donated = fields.Boolean(string="Donated", compute="isDonated", store=True)
+    donated = fields.Boolean(string="Donated")
     #active = fields.Boolean(string="Active", readonly=True)
 
     def donateItem(self):
-        if not self.donation_id and self.location_id.type == "storage":
-            self.env['iscapop.donation_model'].create({
-                'item_ids': self.id,
-                'name': self.name,
-                'photo': self.photo,
-                'condition': self.condition,
-                'category': self.category_id.name,
-                'date': datetime.datetime.now()
-            })
-            self.donated=True
-
-    @api.depends('donated')
-    def isDonated(self):
-        self.donated = True
+        if not self.donation_id:
+            if self.location_id.type == "storage":
+                self.env['iscapop.donation_model'].create({
+                    'item_ids': self.id,
+                    'name': self.name,
+                    'photo': self.photo,
+                    'condition': self.condition,
+                    'category': self.category_id.name,
+                    'date': datetime.datetime.now(),
+                    'donator': self.env.user.id
+                })
+                self.donated=True
+            else:
+                raise exceptions.UserError("The item must be in storage to be donated!")
+        else:
+            raise exceptions.UserError("This item has already been donated!")
