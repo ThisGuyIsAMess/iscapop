@@ -9,13 +9,13 @@
                     <sheet>
                         <group>
                             <group name="left" string="Photo">
-                                <field name="photo" string="" widget="image"/>
+                                <field name="photo" string="" widget="image" options="{'size': [150, 150]}"/>
                             </group>
                             <group name="right" string="Item Details">
                                 <field name="name"/>
                                 <field name="description"/>
                                 <field name="category_id"/>
-                                <field name="location_id"/>
+                                <field name="location_id" domain="[('create_uid', '=', uid)]"/>
                                 <field name="condition"/>
                                 <field name="quantity"/>
                                 <button name="action_generate_item" type="object" string="Create" class="oe_highlight" confirm="Do you want to create the items?"/>

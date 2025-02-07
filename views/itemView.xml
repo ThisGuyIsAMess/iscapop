@@ -6,9 +6,13 @@
             <field name="model">iscapop.item_model</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="name"/>
-                    <field name="condition"/>
-                    <field name="category_id"/>
+                    <field name="name" readonly="True"/>
+                    <field name="category_id" readonly="True"/>
+                    <field name="condition" readonly="True"/>
+                    <field name="location_id" readonly="True"/>
+                    <field name="donated" widget="boolean_toggle" readonly="True"/>
+                    <button name="donateItem" type="object" string="Donate item" class="oe_highlight" confirm="Do you want to put this item up for donation?" invisible="donated or condition == 'retired'"/>
+                    <button name="retireItem" type="object" string="Retire item" class="oe_highlight" confirm="Do you want to remove the retired item?" invisible="donated or condition != 'retired'"/>
                 </tree>
             </field>
         </record>
@@ -21,23 +25,23 @@
                 <form string="Item">
                     <sheet>
                         <headers>
-                            <button name="donateItem" type="object" string="Donate item" class="oe_highlight" confirm="Do you want to put this item up for donation?" readonly="[('donated','=',True)]"/>
+                            <button name="donateItem" type="object" string="Donate item" class="oe_highlight" confirm="Do you want to put this item up for donation?" invisible="donated or condition == 'retired' or location_id.type == 'storage'"/>
                         </headers>
                         <body>
                             <group>
                                 <group name="left">
-                                    <field name="photo" string="" widget="image"/>
+                                    <field name="photo" string="" widget="image" options="{'size': [150, 150]}" readonly="donated"/>
                                 </group>
                                 <group name="right">
                                     <group name="rightLeft">
-                                        <field name="name"/>
-                                        <field name="description"/>
-                                        <field name="category_id"/>
-                                        <field name="location_id"/>
+                                        <field name="name" readonly="donated"/>
+                                        <field name="description" readonly="donated"/>
+                                        <field name="category_id" readonly="donated"/>
+                                        <field name="location_id" readonly="donated" domain="[('create_uid', '=', uid)]"/>
                                     </group>
                                     <group name="rightRight">
-                                        <field name="condition"/>
-                                        <field name="documents"/>
+                                        <field name="condition" readonly="donated"/>
+                                        <field name="documents" readonly="donated"/>
                                         <field name="donated" readonly="True"/>
                                     </group>
                                 </group>
@@ -72,7 +76,7 @@
                                         <field name="category_id"/>
                                     </div>
                                     <div>
-                                        <b>Condition: </b><field name="condition"/>
+                                        <strong>Condition:</strong> <field name="condition"/>
                                     </div>
                                 </div>
                             </div>
@@ -81,5 +85,30 @@
                 </kanban>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="iscapop.item_model_pivot">
+            <field name="name">Item pivot</field>
+            <field name="model">iscapop.item_model</field>
+            <field name="arch" type="xml">
+                <pivot string="Pivot items">
+                    <field name="location_id" type="col"/>
+                    <field name="name" type="row"/>
+                    <field name="condition" type="col"/>
+                    <field name="category_id"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!--<record model="ir.ui.view" id="iscapop.item_model_graph">
+            <field name="name">Item Graph</field>
+            <field name="model">iscapop.item_model</field>
+            <field name="arch" type="xml">
+                <graph type="bar">
+                    <field name="client_id" type="row"/>
+                    <field name="date" interval="month"/>
+                    <field name="total" type="measure" widget="monetary"/>
+                </graph>
+            </field>
+        </record>-->
     </data>
 </odoo>

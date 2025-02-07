@@ -6,6 +6,7 @@
             <field name="res_model">iscapop.move_item_model</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
+            <!--<field name="context">{'location_id', '=', id}</field>-->
         </record>
 
         <!-- Form -->

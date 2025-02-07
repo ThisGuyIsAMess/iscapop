@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="iscapop.donation_template">
+	    <t t-call="web.html_container">
+            <!--<t t-set="items" t-value=""/>-->
+            <div class="page">
+                <div class="header" style="text-align: center;">
+                    <table class="table table-sm table-striped" style="width:100%;">
+                        <tr>
+                            <td style="text-align: left;"><strong>UNIDAD DE DOCUMENTACIÓN,<br/>PROGRAMACIÓN Y ESTADÍSTICA</strong></td>
+                            <td style="text-align: right;"><strong>Tel. 96.127.13.73</strong></td>
+                        </tr>
+                    </table>
+                    <h1 style="font-size: 2em;"><strong>ANNEX IV: PROPOSAL FOR TRANSFER OF SCHOOL EQUIPMENT</strong></h1>
+                </div>
+                <div class="body">
+                    <h2>DONATING SCHOOL INFORMATION</h2>
+                    <p><strong>SCHOOL: </strong><t t-esc="docs[0].donated_by.name or 'N/A'"/></p>
+                    <table class="table table-sm table-striped" style="width:100%;">
+                        <tr>
+                            <td><strong>LOCALITY: </strong><t t-esc="docs[0].donated_by.city or 'N/A'"/></td>
+                            <td><strong>PC: </strong><t t-esc="docs[0].donated_by.zip or 'N/A'"/></td>
+                        </tr>
+                    </table>
+                    <p><strong>ADDRESS: </strong><t t-esc="docs[0].donated_by.contact_address or 'N/A'"/></p>
+                    <p><strong>EMAIL: </strong><t t-esc="docs[0].donated_by.email or 'N/A'"/></p>
+
+                    <hr/>
+
+                    <h2>RECEIVING SCHOOL INFORMATION</h2>
+                    <p><strong>SCHOOL: </strong><t t-esc="docs[0].receiver.name or 'N/A'"/></p>
+                    <table class="table table-sm table-striped" style="width:100%;">
+                        <tr>
+                            <td><strong>LOCALITY: </strong><t t-esc="docs[0].receiver.city or 'N/A'"/></td>
+                            <td><strong>PC: </strong><t t-esc="docs[0].receiver.zip or 'N/A'"/></td>
+                        </tr>
+                    </table>
+                    <p><strong>ADDRESS: </strong><t t-esc="docs[0].receiver.contact_address or 'N/A'"/></p>
+                    <p><strong>EMAIL: </strong><t t-esc="docs[0].receiver.email or 'N/A'"/></p>
+
+                    <hr/>
+
+                    <h2>ITEM DETAILS</h2>
+                    <table class="table table-sm table-striped" style="width:100%;">
+                        <thead style="text-align: left;">
+                            <tr>
+                                <th>NAME OF THE ITEM</th>
+                                <th>CONDITION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="docs" t-as="o">
+                                <t t-if="o.reserved">
+                                    <tr>
+                                        <td><t t-esc="o.name"/></td>
+                                        <td><t t-esc="o.condition"/></td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -21,11 +21,11 @@
                 <form string="Location">
                     <sheet>
                         <header>
-                            <button name="retireItem" type="object" string="Remove retired items" class="oe_highlight" confirm="Do you want to remove all the retired items?"/>
                             <button name="%(action_move_item)d" type="action" string="Move Items" class="oe_highlight"/>
                         </header>
                         <body>
                             <group>
+                                <field name="id" invisible="True"/>
                                 <field name="name"/>
                                 <field name="description"/>
                                 <field name="type" widget="selection_badge"/>

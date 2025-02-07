@@ -10,9 +10,42 @@ class DonationModel(models.Model):
     photo = fields.Binary(string="Photo", related='item_ids.photo')
     condition = fields.Selection(string="Condition", related='item_ids.condition')
     category = fields.Char(string="Category", related='item_ids.category_id.name')
-    date = fields.Date(string="Date")
-    donator = fields.Many2one(string="Donator", comodel_name="res.users")
-    #Reciever
-    #Reserved
+    date = fields.Date(string="Date", readonly=True)
+    donated_by = fields.Many2one(string="Donator", comodel_name="res.users")
+    receiver = fields.Many2one(string="Reciever", comodel_name="res.users")
+    reserved = fields.Boolean(string="Reserved", readonly=True, store=True)
 
-    #Items can only be donated if they're in a storage location
+    def returnToStorage(self):
+        self.item_ids[0].donated = False
+        self.unlink()
+
+    def reserveItem(self):
+        self.receiver = self.env.uid
+        self.reserved = True
+
+    def unreserveItem(self):
+        self.reserved = False
+        self.receiver = None
+    
+    def confirmDonation(self):
+        if(self.reserved):
+            item = self.item_ids[0]
+            reserved_user = self.receiver.user_ids[0]
+            env_with_reserved_user = self.env(user = reserved_user)
+            env_with_reserved_user['iscapop.item_model'].create({
+                'name': item.name,
+                'description': item.description,
+                'photo': item.photo,
+                'documents': item.documents,
+                'condition': item.condition,
+                'category_id': item.category_id.id
+            })
+            item.unlink()
+            self.unlink()
+            return {
+                'effect': {
+                    'fadeout': 'slow',
+                    'message': "Donation confirmed succesfully.",
+                    'img_url': 'm1.jpg',
+                }
+            }

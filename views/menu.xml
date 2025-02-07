@@ -1,62 +1,7 @@
 <odoo>
     <data>
-        <!-- Action Window Category -->
-        <record model="ir.actions.act_window" id="iscapop.action_window_category_list">
-            <field name="name">Category List</field>
-            <field name="res_model">iscapop.category_model</field>
-            <field name="view_mode">tree,form</field>
-            <field name="domain">[('create_uid', '=', uid)]</field>
-        </record>
-
-        <!-- Action Window Item -->
-        <record model="ir.actions.act_window" id="iscapop.action_window_item_list">
-            <field name="name">Item List</field>
-            <field name="res_model">iscapop.item_model</field>
-            <field name="view_mode">kanban,tree,form</field>
-            <field name="domain">[('create_uid', '=', uid)]</field>
-        </record>
-
-        <!-- Action Window Item Add -->
-        <record model="ir.actions.act_window" id="iscapop.action_window_item_add">
-            <field name="name">Item Add</field>
-            <field name="res_model">iscapop.bulk_item_generator_model</field>
-            <field name="view_mode">form</field>
-        </record>
-        
-        <!-- Action Window Location -->
-        <record model="ir.actions.act_window" id="iscapop.action_window_location_list">
-            <field name="name">Location List</field>
-            <field name="res_model">iscapop.location_model</field>
-            <field name="view_mode">tree,form</field>
-            <field name="domain">[('create_uid', '=', uid)]</field>
-        </record>
-
-        <!-- Action Window Donation -->
-        <record model="ir.actions.act_window" id="iscapop.action_window_donation_list">
-            <field name="name">Location List</field>
-            <field name="res_model">iscapop.donation_model</field>
-            <field name="view_mode">kanban,tree</field>
-        </record>
-
-        <!--
-        <record model="ir.ui.view" id="task_app.task_model_search">
-            <field name="name">Task Filters</field>
-            <field name="model">task_app.task_model</field>
-            <field name="arch" type="xml">
-                <search string="Task Filter">
-                    <field name="name"/>
-                    <filter string="Finished Tasks" name="finished" domain="[('is_done', '=', True)]"/>
-                    <filter string="Unfinished Tasks" name="unfinished" domain="[('is_done', '!=', True)]"/>
-                    <filter string="Historical Finished Tasks" name="historical" domain="[('active', '=', False)]"/>
-                </search>
-            </field>
-        </record>
-        -->
-
-
-        <!-- Top menu item -->
-        <menuitem name="ISCAPOP" id="iscapop.menu_root"/>
-
+        <!-- Top Menu Item -->
+        <menuitem name="ISCAPOP" id="iscapop.menu_root" web_icon="iscapop,static/description/icon.png"/>
 
         <!-- Menu Category -->
         <menuitem name="Categories" id="iscapop.menu_category" parent="iscapop.menu_root"/>
@@ -84,6 +29,148 @@
         <menuitem name="Location List" id="iscapop.location_list" parent="iscapop.menu_location" action="iscapop.action_window_location_list"/>
 
         <!-- Action Donation -->
-        <menuitem name="Donation List" id="iscapop.donation_list" parent="iscapop.menu_donation" action="iscapop.action_window_donation_list"/>
+        <menuitem name="My Donations" id="iscapop.my_donations_list" parent="iscapop.menu_donation" action="iscapop.action_window_my_donations_list"/>
+        <menuitem name="Public Donations" id="iscapop.public_donations_list" parent="iscapop.menu_donation" action="iscapop.action_window_public_donations_list"/>
+
+        <!-- Action Window Category -->
+        <record model="ir.actions.act_window" id="iscapop.action_window_category_list">
+            <field name="name">Category List</field>
+            <field name="res_model">iscapop.category_model</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Action Window Item -->
+        <record model="ir.actions.act_window" id="iscapop.action_window_item_list">
+            <field name="name">Item List</field>
+            <field name="res_model">iscapop.item_model</field>
+            <field name="view_mode">pivot,kanban,tree,form</field>
+            <field name="domain">[('create_uid', '=', uid)]</field>
+        </record>
+
+        <!-- Action Window Item Add -->
+        <record model="ir.actions.act_window" id="iscapop.action_window_item_add">
+            <field name="name">Item Add</field>
+            <field name="res_model">iscapop.bulk_item_generator_model</field>
+            <field name="view_mode">form</field>
+            <field name="domain">[('create_uid', '=', uid)]</field>
+        </record>
+        
+        <!-- Action Window Location -->
+        <record model="ir.actions.act_window" id="iscapop.action_window_location_list">
+            <field name="name">Location List</field>
+            <field name="res_model">iscapop.location_model</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('create_uid', '=', uid)]</field>
+        </record>
+
+        <!-- Action Window Donation -->
+        <record model="ir.actions.act_window" id="iscapop.action_window_my_donations_list">
+            <field name="name">My Donations</field>
+            <field name="res_model">iscapop.donation_model</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="domain">[('create_uid', '=', uid)]</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="iscapop.action_window_public_donations_list">
+            <field name="name">Public Donations</field>
+            <field name="res_model">iscapop.donation_model</field>
+            <field name="view_mode">tree,kanban,form,calendar</field>
+            <field name="domain">[('create_uid', '!=', uid)]</field>
+        </record>
+
+        <!-- Action Report Donation -->
+        <record model="ir.actions.report" id="iscapop.action_report_reserved_items">
+            <field name="name">Donation Report</field>
+            <field name="model">iscapop.donation_model</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">iscapop.donation_template</field>
+            <field name="print_report_name">'DonationReport_%s' % (object.name)</field>
+            <field name="binding_model_id" ref="iscapop.model_iscapop_donation_model"/>
+        </record>
+
+        <record model="ir.actions.server" id="iscapop.action_confirm_donation">
+            <field name="name">Confirm Donations</field>
+            <field name="model_id" ref="iscapop.model_iscapop_donation_model"/>
+            <field name="binding_model_id" ref="iscapop.model_iscapop_donation_model"/>
+            <field name="binding_type">action</field>
+            <field name="state">code</field>
+            <field name="code">
+                for record in records:
+                    action = record.confirmDonation()
+            </field>
+        </record>
+
+        <!-- Action Report Retired Item -->
+        <record model="ir.actions.report" id="iscapop.action_report_retired_items">
+            <field name="name">Report Retired Items</field>
+            <field name="model">iscapop.item_model</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">iscapop.retire_template</field>
+            <field name="print_report_name">'RetiredItemReport_%s' % (object.name)</field>
+            <field name="binding_model_id" ref="iscapop.model_iscapop_item_model"/>
+        </record>
+
+        <record model="ir.actions.server" id="iscapop.action_retire_items">
+            <field name="name">Retire Items</field>
+            <field name="model_id" ref="iscapop.model_iscapop_item_model"/>
+            <field name="binding_model_id" ref="iscapop.model_iscapop_item_model"/>
+            <field name="binding_type">action</field>
+            <field name="state">code</field>
+            <field name="code">
+                for record in records:
+                    action = record.retireItem()
+            </field>
+        </record>
+
+        <!-- Search Item -->
+        <record model="ir.ui.view" id="iscapop.item_model_search">
+            <field name="name">Item Filters</field>
+            <field name="model">iscapop.item_model</field>
+            <field name="arch" type="xml">
+                <search string="Item Filter">
+                    <group string="Condition">
+                        <filter string="New Condition" name="new" domain="[('condition', '=', 'new')]"/>
+                        <filter string="Good Condition" name="good" domain="[('condition', '=', 'good')]"/>
+                        <filter string="Fair Condition" name="fair" domain="[('condition', '=', 'fair')]"/>
+                        <filter string="Poor Condition" name="poor" domain="[('condition', '=', 'poor')]"/>
+                        <filter string="Retired Condition" name="retired" domain="[('condition', '=', 'retired')]"/>
+                    </group>
+                    <filter string="History Retired Items" name="history" domain="[('active', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Category" name="category" context="{'group_by': 'category_id'}"/>
+                        <filter string="Condition" name="condition" context="{'group_by': 'condition'}"/>
+                        <filter string="Name" name="name" context="{'group_by': 'name'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Search Location -->
+        <record model="ir.ui.view" id="iscapop.location_model_search">
+            <field name="name">Location Filters</field>
+            <field name="model">iscapop.location_model</field>
+            <field name="arch" type="xml">
+                <search string="Location Filter">
+                    <group expand="0" string="Group By">
+                        <filter string="Type" name="type" context="{'group_by': 'type'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Search Donation -->
+        <record model="ir.ui.view" id="iscapop.donation_model_search">
+            <field name="name">Donation Filters</field>
+            <field name="model">iscapop.donation_model</field>
+            <field name="arch" type="xml">
+                <search string="Donation Filter">
+                    <filter string="Unreserved" name="unassigned" domain="[('reserved', '=', False)]"/>
+                    <filter string="Reserved" name="assigned" domain="[('reserved', '=', True),('receiver', '=', uid)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Receiver" name="reserved" context="{'group_by': 'receiver'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
     </data>
 </odoo>

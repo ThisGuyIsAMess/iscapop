@@ -12,8 +12,3 @@ class LocationModel(models.Model):
     description = fields.Html(string="Description")
     item_ids = fields.One2many(string="Item Details", comodel_name="iscapop.item_model", inverse_name="location_id")
     type = fields.Selection([("class", "Class"), ("department", "Department"), ("storage", "Storage")], string="Type", default="class")
-
-    def retireItem(self):
-        for item in self.item_ids:
-            if item.condition == "retired":
-                item.unlink()
