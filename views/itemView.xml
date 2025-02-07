@@ -99,6 +99,36 @@
             </field>
         </record>
 
+        <!-- Action Window Item -->
+        <record model="ir.actions.act_window" id="iscapop.action_window_item_list">
+            <field name="name">Item List</field>
+            <field name="res_model">iscapop.item_model</field>
+            <field name="view_mode">pivot,kanban,tree,form</field>
+            <field name="domain">[('create_uid', '=', uid)]</field>
+        </record>
+
+        <!-- Action Report Retired Item -->
+        <record model="ir.actions.report" id="iscapop.action_report_retired_items">
+            <field name="name">Report Retired Items</field>
+            <field name="model">iscapop.item_model</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">iscapop.retire_template</field>
+            <field name="print_report_name">'RetiredItemReport_%s' % (object.name)</field>
+            <field name="binding_model_id" ref="iscapop.model_iscapop_item_model"/>
+        </record>
+
+        <record model="ir.actions.server" id="iscapop.action_retire_items">
+            <field name="name">Retire Items</field>
+            <field name="model_id" ref="iscapop.model_iscapop_item_model"/>
+            <field name="binding_model_id" ref="iscapop.model_iscapop_item_model"/>
+            <field name="binding_type">action</field>
+            <field name="state">code</field>
+            <field name="code">
+                for record in records:
+                    action = record.retireItem()
+            </field>
+        </record>
+
         <!--<record model="ir.ui.view" id="iscapop.item_model_graph">
             <field name="name">Item Graph</field>
             <field name="model">iscapop.item_model</field>

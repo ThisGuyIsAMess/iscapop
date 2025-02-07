@@ -25,5 +25,13 @@
                 </form>
             </field>
         </record>
+
+        <!-- Action Window Item Add -->
+        <record model="ir.actions.act_window" id="iscapop.action_window_item_add">
+            <field name="name">Item Add</field>
+            <field name="res_model">iscapop.bulk_item_generator_model</field>
+            <field name="view_mode">form</field>
+            <field name="domain">[('create_uid', '=', uid)]</field>
+        </record>
     </data>
 </odoo>

@@ -40,5 +40,13 @@
                 </form>
             </field>
         </record>
+        
+        <!-- Action Window Location -->
+        <record model="ir.actions.act_window" id="iscapop.action_window_location_list">
+            <field name="name">Location List</field>
+            <field name="res_model">iscapop.location_model</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('create_uid', '=', uid)]</field>
+        </record>
     </data>
 </odoo>

@@ -90,6 +90,7 @@
             </field>
         </record>
 
+        <!-- Calendar -->
         <record model="ir.ui.view" id="iscapop.donation_model_calendar">
             <field name="name">Calendar visits</field>
             <field name="model">iscapop.donation_model</field>
@@ -98,6 +99,43 @@
                     <field name="name"/>
                     <field name="date"/>
                 </calendar>
+            </field>
+        </record>
+
+        <!-- Action Window Donation -->
+        <record model="ir.actions.act_window" id="iscapop.action_window_my_donations_list">
+            <field name="name">My Donations</field>
+            <field name="res_model">iscapop.donation_model</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="domain">[('create_uid', '=', uid)]</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="iscapop.action_window_public_donations_list">
+            <field name="name">Public Donations</field>
+            <field name="res_model">iscapop.donation_model</field>
+            <field name="view_mode">tree,kanban,form,calendar</field>
+            <field name="domain">[('create_uid', '!=', uid)]</field>
+        </record>
+
+        <!-- Action Report Donation -->
+        <record model="ir.actions.report" id="iscapop.action_report_reserved_items">
+            <field name="name">Donation Report</field>
+            <field name="model">iscapop.donation_model</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">iscapop.donation_template</field>
+            <field name="print_report_name">'DonationReport_%s' % (object.name)</field>
+            <field name="binding_model_id" ref="iscapop.model_iscapop_donation_model"/>
+        </record>
+
+        <record model="ir.actions.server" id="iscapop.action_confirm_donation">
+            <field name="name">Confirm Donations</field>
+            <field name="model_id" ref="iscapop.model_iscapop_donation_model"/>
+            <field name="binding_model_id" ref="iscapop.model_iscapop_donation_model"/>
+            <field name="binding_type">action</field>
+            <field name="state">code</field>
+            <field name="code">
+                for record in records:
+                    action = record.confirmDonation()
             </field>
         </record>
     </data>
