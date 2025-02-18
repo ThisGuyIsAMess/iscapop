@@ -2,7 +2,6 @@
 
 from . import models
 from . import item
-from . import itemDetails
 from . import category
 from . import location
 from . import bulkItemGenerator

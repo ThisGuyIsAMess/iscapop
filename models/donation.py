@@ -42,10 +42,3 @@ class DonationModel(models.Model):
             })
             item.unlink()
             self.unlink()
-            return {
-                'effect': {
-                    'fadeout': 'slow',
-                    'message': "Donation confirmed succesfully.",
-                    'img_url': 'm1.jpg',
-                }
-            }
