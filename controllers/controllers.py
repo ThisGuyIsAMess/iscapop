@@ -23,7 +23,7 @@ class Iscapop(http.Controller):
             }
             return data
         
-    @http.route('/iscapop/add_categories/', auth='public', type="json", methods=["POST"])
+    @http.route('/iscapop/add_category/', auth='public', type="json", methods=["POST"])
     def addCategories(self, **kw):
         try:
             response = http.request.httprequest.json
@@ -60,7 +60,7 @@ class Iscapop(http.Controller):
             }
             return data
 
-    @http.route('/iscapop/delete_category', auth="public", type="json", methods=["DELETE"])
+    @http.route('/iscapop/del_category', auth="public", type="json", methods=["DELETE"])
     def deleteCategories(self, **kw):
         response = http.request.httprequest.json
         domain = [("id", "=", response["id"])]
@@ -90,7 +90,7 @@ class Iscapop(http.Controller):
             }
             return http.Response(json.dumps(data), mimetype="application/json")
 
-    @http.route('/iscapop/add_items/', auth='public', type="json", methods=["POST"])
+    @http.route('/iscapop/add_item/', auth='public', type="json", methods=["POST"])
     def addItems(self, **kw):
         try:
             response = http.request.httprequest.json
@@ -108,7 +108,7 @@ class Iscapop(http.Controller):
             }
             return data
         
-    @http.route('/iscapop/mod_items/', auth='public', type="json", methods=["PUT"])
+    @http.route('/iscapop/mod_item/', auth='public', type="json", methods=["PUT"])
     def modItems(self, **kw):
         try:
             response = http.request.httprequest.json
@@ -127,7 +127,7 @@ class Iscapop(http.Controller):
             }
             return data
         
-    @http.route('/iscapop/delete_item', auth="public", type="json", methods=["DELETE"])
+    @http.route('/iscapop/del_item', auth="public", type="json", methods=["DELETE"])
     def deleteItems(self, **kw):
         response = http.request.httprequest.json
         domain = [("id", "=", response["id"])]
@@ -178,7 +178,7 @@ class Iscapop(http.Controller):
             }
             return data
         
-    @http.route('/iscapop/add_donations/', auth='public', type="json", methods=["POST"])
+    @http.route('/iscapop/add_donation/', auth='public', type="json", methods=["POST"])
     def addDonations(self, itemid=None, **kw):
         try:
             response = http.request.httprequest.json
